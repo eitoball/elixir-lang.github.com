@@ -83,7 +83,7 @@ Note > Elixir {{ stable.name }} の使用には Erlang {{ stable.minimum_otp }} 
   * Enter bash within container with installed `elixir`
     * Run: `docker run -it --rm elixir bash`
 
-これらのディストリビューションは、たいてい自動で Erlang もインストールしてくれますが、もしインストールされない場合は [Installing Erlang](/install.html#installing-erlang) を参照してください.
+これらのディストリビューションは、たいてい自動で Erlang もインストールしてくれますが、もしインストールされない場合は [Installing Erlang](/install.html#installing-erlang)(英語) を参照してください.
 
 プリコンパイル済みパッケージのリストが必要でしたら、こちらからどうぞ。[https://elixir-lang.org/elixir.csv](https://elixir-lang.org/elixir.csv).
 
@@ -121,28 +121,28 @@ $ cd elixir
 $ make clean test
 ```
 
-問題なければいいですが、もし何か気づいたことがありましたら、いつでも気軽に Issue をください！
+問題なければいいのですが、もし何か気づいたことがありましたら、いつでも気軽に Issue をください！
 [in the issues tracker on Github](https://github.com/elixir-lang/elixir)
 
 ## Installing Erlang
 
-The only prerequisite for Elixir is Erlang, version {{ stable.minimum_otp }} or later, which can be easily installed with [Precompiled packages](https://www.erlang-solutions.com/resources/download.html). In case you want to install it directly from source, it can be found on [the Erlang website](http://www.erlang.org/download.html) or by following the excellent tutorial available in the [Riak documentation](https://docs.basho.com/riak/latest/ops/building/installing/erlang/).
+Elixir に必要な要件は、 {{ stable.minimum_otp }} 以降の Erlang だけです。 [パッケージをプリコンパイル](https://www.erlang-solutions.com/resources/download.html)(英語) して簡単にインストールできます。ソースファイルからある特定のディレクトリにインストールしたい場合は、[Erlang 公式 Web サイト](http://www.erlang.org/download.html)(英語) をお探しいただくか、 [Riak ドキュメント (Installing Erlang)](https://docs.basho.com/riak/latest/ops/building/installing/erlang/)(英語) がとても参考になるはずです。
 
-For Windows developers, we recommend the precompiled packages. Those on a Unix platform can probably get Erlang installed via one of the many package distribution tools.
+Windows をご利用されている開発者にはプリコンパイル済みのパッケージをおすすめします。Unix 系ディストリビューションでは、大抵それぞれに用意されたツールを用いて Erlang をインストールできます。
 
-After Erlang is installed, you should be able to open up the command line (or command prompt) and check the Erlang version by typing `erl`. You will see some information similar to:
+Erlang のインストールが終わりましたら、コマンドラインやコマンドプロンプトを開き、 `erl` コマンドでバージョンを確認しましょう。以下のような情報がいくつか表示されるはずです。
 
     Erlang/OTP {{ stable.minimum_otp }} [64-bit] [smp:2:2] [async-threads:0] [hipe] [kernel-poll:false]
 
-Notice that depending on how you installed Erlang, Erlang binaries might not be available in your PATH. Be sure to have Erlang binaries in your [PATH](https://en.wikipedia.org/wiki/Environment_variable), otherwise Elixir won't work!
+Erlang のインストールの仕方によっては、環境変数 PATH からコマンドを利用できないことがあるかも知れません。その場合は PATH を適切に設定してください。そうでなければ、 Elixir を正常に利用できません。PATH (環境変数) という用語については [PATH](https://ja.wikipedia.org/wiki/環境変数) を参照してください。
 
 ## Setting PATH environment variable
 
-It is highly recommended to add Elixir's bin path to your PATH environment variable to ease development.
+効率的な開発の為にも、Elixir コマンドのパスを環境変数 PATH に設定しておくことを強くおすすめします。
 
-On **Windows**, there are [instructions for different versions](http://www.computerhope.com/issues/ch000549.htm) explaining the process.
+**Windows をご利用の方** : 環境変数 PATH の設定が OS のバージョンによって異なります。 [各バージョンごとの取扱](http://www.computerhope.com/issues/ch000549.htm)(英語) で手順の説明をご用意していますので参考にしてください。
 
-On **Unix systems**, you need to [find your shell profile file](https://unix.stackexchange.com/a/117470/101951), and then add to the end of this file the following line reflecting the path to your Elixir installation:
+**Unix 系ご利用の方** : Elixir のインストールを終えましたら、コマンドを探索する為に [ログインプロファイル](https://unix.stackexchange.com/a/117470/101951)(英語) を作成し、エディタで開いたのちに以下の一行を入力して保存します。設定ファイルがすでに存在する場合は一番最後の行に書き加えてください。
 
 ```bash
 export PATH="$PATH:/path/to/elixir/bin"
@@ -150,4 +150,4 @@ export PATH="$PATH:/path/to/elixir/bin"
 
 ## Checking the installed version of Elixir
 
-Once you have Elixir installed, you can check its version by running `elixir --version`.
+一度 Elixir のインストールを終わらせると、 `elixir --version` と入力すればバージョンを確認できます。
