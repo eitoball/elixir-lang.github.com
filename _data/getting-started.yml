@@ -4,115 +4,115 @@
     - title: はじめに
       slug: introduction
 
-    - title: Basic types
+    - title: 基本型
       slug: basic-types
 
-    - title: Basic operators
+    - title: 基本演算子
       slug: basic-operators
 
-    - title: Pattern matching
+    - title: パターン・マッチング
       slug: pattern-matching
 
-    - title: case, cond, and if
+    - title: case, cond, if
       slug: case-cond-and-if
 
-    - title: Binaries, strings, and charlists
+    - title: バイナリ, 文字列, 文字リスト
       slug: binaries-strings-and-char-lists
 
-    - title: Keywords lists and maps
+    - title: キーワードリストとマップ
       slug: keywords-and-maps
 
-    - title: Modules and Functions
+    - title: モジュールと関数
       slug: modules-and-functions
 
-    - title: Recursion
+    - title: 再帰
       slug: recursion
 
-    - title: Enumerables and streams
+    - title: Enumerable と stream
       slug: enumerables-and-streams
 
-    - title: Processes
+    - title: プロセス
       slug: processes
 
-    - title: IO and the file system
+    - title: IO と ファイルシステム
       slug: io-and-the-file-system
 
-    - title: alias, require, and import
+    - title: alias, require, import
       slug: alias-require-and-import
 
-    - title: Module attributes
+    - title: モジュール属性
       slug: module-attributes
 
-    - title: Structs
+    - title: Struct
       slug: structs
 
-    - title: Protocols
+    - title: プロトコル
       slug: protocols
 
-    - title: Comprehensions
+    - title: 内包表記
       slug: comprehensions
 
-    - title: Sigils
+    - title: シジル記法
       slug: sigils
 
     - title: try、catch、rescue
       slug: try-catch-and-rescue
 
-    - title: Typespecs and behaviours
+    - title: 型仕様 と 動作
       slug: typespecs-and-behaviours
 
-    - title: Debugging
+    - title: デバッグ
       slug: debugging
 
-    - title: Erlang libraries
+    - title: Erlang ライブラリ
       slug: erlang-libraries
 
     - title: 次にどこへ行こう
       slug: where-to-go-next
 
 
-- title: Mix and OTP
+- title: Mix と OTP
   dir: /getting-started/mix-otp/
   pages:
-    - title: Introduction to Mix
+    - title: 入門 Mix
       slug: introduction-to-mix
 
-    - title: Agent
+    - title: エージェント
       slug: agent
 
     - title: GenServer
       slug: genserver
 
-    - title: Supervisor and Application
+    - title: スーパーバイザとアプリ
       slug: supervisor-and-application
 
-    - title: Dynamic supervisors
+    - title: 動的スーパーバイザ
       slug: dynamic-supervisor
 
     - title: ETS
       slug: ets
 
-    - title: Dependencies and umbrella projects
+    - title: 依存関係と Umbrella プロジェクト
       slug: dependencies-and-umbrella-projects
 
-    - title: Task and gen_tcp
+    - title: タスクと gen_tcp
       slug: task-and-gen-tcp
 
     - title: Doctests, patterns and with
       slug: docs-tests-and-with
 
-    - title: Distributed tasks and configuration
+    - title: 分散型タスクと設定
       slug: distributed-tasks-and-configuration
 
 
-- title: Meta-programming in Elixir
+- title: メタプログラミング Elixir
   dir: /getting-started/meta/
   pages:
-    - title: Quote and unquote
+    - title: Quote と unquote
       slug: quote-and-unquote
 
-    - title: Macros
+    - title: マクロ
       slug: macros
 
-    - title: Domain-specific languages
+    - title: DSL (ドメイン固有言語)
       slug: domain-specific-languages
