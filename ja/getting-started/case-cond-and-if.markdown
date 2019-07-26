@@ -7,11 +7,11 @@ title: case, cond, and if
 
 {% include toc.html %}
 
-In this chapter, we will learn about the `case`, `cond`, and `if` control flow structures.
+この章では、 case, cond, if といった制御構造について学んでいきます。
 
 ## `case`
 
-`case` allows us to compare a value against many patterns until we find a matching one:
+`case` を使うと、いくつかあるパターンのいずれかにマッチするまで値を比較することができます。
 
 ```iex
 iex> case {1, 2, 3} do
@@ -25,7 +25,7 @@ iex> case {1, 2, 3} do
 "This clause will match and bind x to 2 in this clause"
 ```
 
-If you want to pattern match against an existing variable, you need to use the `^` operator:
+すでに存在している変数に対してパターンマッチを行うには `^` 演算子を使います。
 
 ```iex
 iex> x = 1
@@ -37,7 +37,7 @@ iex> case 10 do
 "Will match"
 ```
 
-Clauses also allow extra conditions to be specified via guards:
+節はガードを使って条件を指定することもできます。
 
 ```iex
 iex> case {1, 2, 3} do
@@ -49,9 +49,9 @@ iex> case {1, 2, 3} do
 "Will match"
 ```
 
-The first clause above will only match when `x` is positive.
+上記の例にある最初の節では `x` が整数の時にマッチします。
 
-Keep in mind errors in guards do not leak but simply make the guard fail:
+ガードにおけるエラーが処理を抜けることはなく、ただガードに失敗するだけであると覚えておいてください。
 
 ```iex
 iex> hd(1)
@@ -63,7 +63,7 @@ iex> case 1 do
 "Got 1"
 ```
 
-If none of the clauses match, an error is raised:
+いずれの節にもマッチしない時はエラーになります。
 
 ```iex
 iex> case :ok do
@@ -72,9 +72,9 @@ iex> case :ok do
 ** (CaseClauseError) no case clause matching: :ok
 ```
 
-Consult [the full documentation for guards](https://hexdocs.pm/elixir/guards.html) for more information about guards, how they are used, and what expressions are allowed in them.
+ガードの使い方や利用できる式について知りたい時は [the full documentation for guards](https://hexdocs.pm/elixir/guards.html) で詳しい情報を得られます。
 
-Note anonymous functions can also have multiple clauses and guards:
+NOTE: 無名関数は複数の節とガードを含むこともできます。
 
 ```iex
 iex> f = fn
@@ -88,7 +88,7 @@ iex> f.(-1, 3)
 -3
 ```
 
-The number of arguments in each anonymous function clause needs to be the same, otherwise an error is raised.
+無名関数の中で節は引数の数が同じでなくてはならず、その数が合わなければエラーになります。
 
 ```iex
 iex> f2 = fn
@@ -100,7 +100,7 @@ iex> f2 = fn
 
 ## `cond`
 
-`case` is useful when you need to match against different values. However, in many circumstances, we want to check different conditions and find the first one that evaluates to true. In such cases, one may use `cond`:
+`case` は様々な値に対してマッチさせたい時に有用です。それでも、様々な条件を調べて最初に true と評価されるものを見つけたいことが往々にしてあります。そういった場合に取る方法のひとつが `cond` です。
 
 ```iex
 iex> cond do
@@ -114,9 +114,9 @@ iex> cond do
 "But this will"
 ```
 
-This is equivalent to `else if` clauses in many imperative languages (although used way less frequently here).
+これは多くの命令型言語における `else if` に相当するものです(ここではあまり使われません)。
 
-If none of the conditions return true, an error (`CondClauseError`) is raised. For this reason, it may be necessary to add a final condition, equal to `true`, which will always match:
+true を返す条件が見つからないと (`CondClauseError`) になります。この理由は、そういった時に最後では必ず `true` に等しくなる条件を書かなくてはならない為です。
 
 ```iex
 iex> cond do
@@ -130,7 +130,7 @@ iex> cond do
 "This is always true (equivalent to else)"
 ```
 
-Finally, note `cond` considers any value besides `nil` and `false` to be true:
+最後に、 `cond` は `nil` と `false` 以外の如何なる値も `true` と見なすことを覚えておきましょう。
 
 ```iex
 iex> cond do
@@ -142,7 +142,7 @@ iex> cond do
 
 ## `if` and `unless`
 
-Besides `case` and `cond`, Elixir also provides the macros `if/2` and `unless/2` which are useful when you need to check for only one condition:
+`case` と `cond` の他、ひとつの条件だけを検証したい時に有用なマクロ `if/2` と `unless/2` も使えます。
 
 ```iex
 iex> if true do
@@ -155,9 +155,9 @@ iex> unless true do
 nil
 ```
 
-If the condition given to `if/2` returns `false` or `nil`, the body given between `do/end` is not executed and instead it returns `nil`. The opposite happens with `unless/2`.
+`false` と `nil` を返す条件では `do/end` のブロック間にある内容が実行されず、代わりに `nil` を返します。 `unless` ではこの逆になります。
 
-They also support `else` blocks:
+これらはブロックで `else` も使えます。
 
 ```iex
 iex> if nil do
@@ -168,25 +168,25 @@ iex> if nil do
 "This will"
 ```
 
-> Note: An interesting note regarding `if/2` and `unless/2` is that they are implemented as macros in the language; they aren't special language constructs as they would be in many languages. You can check the documentation and the source of `if/2` in [the `Kernel` module docs](https://hexdocs.pm/elixir/Kernel.html). The `Kernel` module is also where operators like `+/2` and functions like `is_function/2` are defined, all automatically imported and available in your code by default.
+`if/2` と `unless/2` がマクロとして実行されることに関して興味深いところですが、他の多くの言語でもそうであるように、取り立てるほど特別な構造ではありません。これらに関するドキュメントや `if/2` のソースは [the `Kernel` module docs](https://hexdocs.pm/elixir/Kernel.html) で確認できます。 `Kernel` モジュールには `+/2` のような演算子や `is_function/2` といった関数も定義されており、すべて自動的にインポートされるので、あなたのコードはデフォルトでそれらを利用することができます。
 
 ## `do/end` blocks
 
-At this point, we have learned four control structures: `case`, `cond`, `if`, and `unless`, and they were all wrapped in `do/end` blocks. It happens we could also write `if` as follows:
+ここまで `case`, `cond`, `if`, `unless` という4つの制御構造を学びましたが、これらはすべて `do/end` ブロックに包含されていました。しかし、よくある書き方として `if` を以下のようにすることもできたのです。
 
 ```iex
 iex> if true, do: 1 + 2
 3
 ```
 
-Notice how the example above has a comma between `true` and `do:`, that's because it is using Elixir's regular syntax where each argument is separated by a comma. We say this syntax is using *keyword lists*. We can pass `else` using keywords too:
+注目して欲しいのは、どうしてこの例で `true` と `do:` の間にコンマが置かれているのかです。この理由は、各引数がコンマによって区切られなければいけないという基本的な文法によります。つまり、この文法は *キーワードリスト* を使っているということなのです。キーワードに `else` を渡して使うこともできます。
 
 ```iex
 iex> if false, do: :this, else: :that
 :that
 ```
 
-`do/end` blocks are a syntactic convenience built on top of the keywords one. That's why `do/end` blocks do not require a comma between the previous argument and the block. They are useful exactly because they remove the verbosity when writing blocks of code. These are equivalent:
+`do/end` ブロックは文法的な便宜です。では、なぜ `do/end` ブロックは前にある引数やブロックとの間にコンマを必要としないのでしょう。以下の二つは同等になります。
 
 ```iex
 iex> if true do
@@ -201,7 +201,7 @@ iex> if true, do: (
 13
 ```
 
-One thing to keep in mind when using `do/end` blocks is they are always bound to the outermost function call. For example, the following expression:
+`do/end` ブロックを使う場合にひとつ留意して欲しいのが、これらは一番外側で呼ばれた関数に対して働く点です。例えば以下の表現は、`if` のキーワードとしては認められません。
 
 ```iex
 iex> is_number if true do
@@ -210,7 +210,7 @@ iex> is_number if true do
 ** (CompileError) iex:1: undefined function is_number/2
 ```
 
-Would be parsed as:
+その為、実際には以下のように解釈されることになってしまいます。
 
 ```iex
 iex> is_number(if true) do
@@ -219,9 +219,9 @@ iex> is_number(if true) do
 ** (CompileError) iex:1: undefined function is_number/2
 ```
 
-which leads to an undefined function error because that invocation passes two arguments, and `is_number/2` does not exist. The `if true` expression is invalid in itself because it needs the block, but since the arity of `is_number/2` does not match, Elixir does not even reach its evaluation.
+無理なお願いをしたことで起こった undefined function のエラーです。 `is_number/2` は存在しないと言っています。`if true` という式はブロックが必要になる為、これ自体が無効な表現となります。 `is_number/2` のアリティとは一致しません。ゆえに Elixir はそれを評価するにさえ至らないのです。
 
-Adding explicit parentheses is enough to bind the block to `if`:
+`if` にブロックを括り付けるには明確に丸括弧で囲むだけで十分です。
 
 ```iex
 iex> is_number(if true do
@@ -230,4 +230,4 @@ iex> is_number(if true do
 true
 ```
 
-Keyword lists play an important role in the language and are quite common in many functions and macros. We will explore them a bit more in a future chapter. Now it is time to talk about "Binaries, strings, and char lists".
+キーワードリストはとても重要な役割を果たしており、多くの関数やマクロにおいて普遍的なものです。それについてはまた別の章で取り上げる事として、そろそろ "バイナリ、文字列、文字リスト" の紹介してもいい頃でしょう。

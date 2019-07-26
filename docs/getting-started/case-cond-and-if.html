@@ -224,11 +224,11 @@
 
 <div id="toc" class="toc"></div>
 
-<p>In this chapter, we will learn about the <code class="highlighter-rouge">case</code>, <code class="highlighter-rouge">cond</code>, and <code class="highlighter-rouge">if</code> control flow structures.</p>
+<p>この章では、 case, cond, if といった制御構造について学んでいきます。</p>
 
 <h2 id="case"><code class="highlighter-rouge">case</code></h2>
 
-<p><code class="highlighter-rouge">case</code> allows us to compare a value against many patterns until we find a matching one:</p>
+<p><code class="highlighter-rouge">case</code> を使うと、いくつかあるパターンのいずれかにマッチするまで値を比較することができます。</p>
 
 <pre><code class="language-iex">iex&gt; case {1, 2, 3} do
 ...&gt;   {4, 5, 6} -&gt;
@@ -241,7 +241,7 @@
 "This clause will match and bind x to 2 in this clause"
 </code></pre>
 
-<p>If you want to pattern match against an existing variable, you need to use the <code class="highlighter-rouge">^</code> operator:</p>
+<p>すでに存在している変数に対してパターンマッチを行うには <code class="highlighter-rouge">^</code> 演算子を使います。</p>
 
 <pre><code class="language-iex">iex&gt; x = 1
 1
@@ -252,7 +252,7 @@ iex&gt; case 10 do
 "Will match"
 </code></pre>
 
-<p>Clauses also allow extra conditions to be specified via guards:</p>
+<p>節はガードを使って条件を指定することもできます。</p>
 
 <pre><code class="language-iex">iex&gt; case {1, 2, 3} do
 ...&gt;   {1, x, 3} when x &gt; 0 -&gt;
@@ -263,9 +263,9 @@ iex&gt; case 10 do
 "Will match"
 </code></pre>
 
-<p>The first clause above will only match when <code class="highlighter-rouge">x</code> is positive.</p>
+<p>上記の例にある最初の節では <code class="highlighter-rouge">x</code> が整数の時にマッチします。</p>
 
-<p>Keep in mind errors in guards do not leak but simply make the guard fail:</p>
+<p>ガードにおけるエラーが処理を抜けることはなく、ただガードに失敗するだけであると覚えておいてください。</p>
 
 <pre><code class="language-iex">iex&gt; hd(1)
 ** (ArgumentError) argument error
@@ -276,7 +276,7 @@ iex&gt; case 1 do
 "Got 1"
 </code></pre>
 
-<p>If none of the clauses match, an error is raised:</p>
+<p>いずれの節にもマッチしない時はエラーになります。</p>
 
 <pre><code class="language-iex">iex&gt; case :ok do
 ...&gt;   :error -&gt; "Won't match"
@@ -284,9 +284,9 @@ iex&gt; case 1 do
 ** (CaseClauseError) no case clause matching: :ok
 </code></pre>
 
-<p>Consult <a href="https://hexdocs.pm/elixir/guards.html">the full documentation for guards</a> for more information about guards, how they are used, and what expressions are allowed in them.</p>
+<p>ガードの使い方や利用できる式について知りたい時は <a href="https://hexdocs.pm/elixir/guards.html">the full documentation for guards</a> で詳しい情報を得られます。</p>
 
-<p>Note anonymous functions can also have multiple clauses and guards:</p>
+<p>NOTE: 無名関数は複数の節とガードを含むこともできます。</p>
 
 <pre><code class="language-iex">iex&gt; f = fn
 ...&gt;   x, y when x &gt; 0 -&gt; x + y
@@ -299,7 +299,7 @@ iex&gt; f.(-1, 3)
 -3
 </code></pre>
 
-<p>The number of arguments in each anonymous function clause needs to be the same, otherwise an error is raised.</p>
+<p>無名関数の中で節は引数の数が同じでなくてはならず、その数が合わなければエラーになります。</p>
 
 <pre><code class="language-iex">iex&gt; f2 = fn
 ...&gt;   x, y when x &gt; 0 -&gt; x + y
@@ -310,7 +310,7 @@ iex&gt; f.(-1, 3)
 
 <h2 id="cond"><code class="highlighter-rouge">cond</code></h2>
 
-<p><code class="highlighter-rouge">case</code> is useful when you need to match against different values. However, in many circumstances, we want to check different conditions and find the first one that evaluates to true. In such cases, one may use <code class="highlighter-rouge">cond</code>:</p>
+<p><code class="highlighter-rouge">case</code> は様々な値に対してマッチさせたい時に有用です。それでも、様々な条件を調べて最初に true と評価されるものを見つけたいことが往々にしてあります。そういった場合に取る方法のひとつが <code class="highlighter-rouge">cond</code> です。</p>
 
 <pre><code class="language-iex">iex&gt; cond do
 ...&gt;   2 + 2 == 5 -&gt;
@@ -323,9 +323,9 @@ iex&gt; f.(-1, 3)
 "But this will"
 </code></pre>
 
-<p>This is equivalent to <code class="highlighter-rouge">else if</code> clauses in many imperative languages (although used way less frequently here).</p>
+<p>これは多くの命令型言語における <code class="highlighter-rouge">else if</code> に相当するものです(ここではあまり使われません)。</p>
 
-<p>If none of the conditions return true, an error (<code class="highlighter-rouge">CondClauseError</code>) is raised. For this reason, it may be necessary to add a final condition, equal to <code class="highlighter-rouge">true</code>, which will always match:</p>
+<p>true を返す条件が見つからないと (<code class="highlighter-rouge">CondClauseError</code>) になります。この理由は、そういった時に最後では必ず <code class="highlighter-rouge">true</code> に等しくなる条件を書かなくてはならない為です。</p>
 
 <pre><code class="language-iex">iex&gt; cond do
 ...&gt;   2 + 2 == 5 -&gt;
@@ -338,7 +338,7 @@ iex&gt; f.(-1, 3)
 "This is always true (equivalent to else)"
 </code></pre>
 
-<p>Finally, note <code class="highlighter-rouge">cond</code> considers any value besides <code class="highlighter-rouge">nil</code> and <code class="highlighter-rouge">false</code> to be true:</p>
+<p>最後に、 <code class="highlighter-rouge">cond</code> は <code class="highlighter-rouge">nil</code> と <code class="highlighter-rouge">false</code> 以外の如何なる値も <code class="highlighter-rouge">true</code> と見なすことを覚えておきましょう。</p>
 
 <pre><code class="language-iex">iex&gt; cond do
 ...&gt;   hd([1, 2, 3]) -&gt;
@@ -349,7 +349,7 @@ iex&gt; f.(-1, 3)
 
 <h2 id="if-and-unless"><code class="highlighter-rouge">if</code> and <code class="highlighter-rouge">unless</code></h2>
 
-<p>Besides <code class="highlighter-rouge">case</code> and <code class="highlighter-rouge">cond</code>, Elixir also provides the macros <code class="highlighter-rouge">if/2</code> and <code class="highlighter-rouge">unless/2</code> which are useful when you need to check for only one condition:</p>
+<p><code class="highlighter-rouge">case</code> と <code class="highlighter-rouge">cond</code> の他、ひとつの条件だけを検証したい時に有用なマクロ <code class="highlighter-rouge">if/2</code> と <code class="highlighter-rouge">unless/2</code> も使えます。</p>
 
 <pre><code class="language-iex">iex&gt; if true do
 ...&gt;   "This works!"
@@ -361,9 +361,9 @@ iex&gt; unless true do
 nil
 </code></pre>
 
-<p>If the condition given to <code class="highlighter-rouge">if/2</code> returns <code class="highlighter-rouge">false</code> or <code class="highlighter-rouge">nil</code>, the body given between <code class="highlighter-rouge">do/end</code> is not executed and instead it returns <code class="highlighter-rouge">nil</code>. The opposite happens with <code class="highlighter-rouge">unless/2</code>.</p>
+<p><code class="highlighter-rouge">false</code> と <code class="highlighter-rouge">nil</code> を返す条件では <code class="highlighter-rouge">do/end</code> のブロック間にある内容が実行されず、代わりに <code class="highlighter-rouge">nil</code> を返します。 <code class="highlighter-rouge">unless</code> ではこの逆になります。</p>
 
-<p>They also support <code class="highlighter-rouge">else</code> blocks:</p>
+<p>これらはブロックで <code class="highlighter-rouge">else</code> も使えます。</p>
 
 <pre><code class="language-iex">iex&gt; if nil do
 ...&gt;   "This won't be seen"
@@ -373,25 +373,23 @@ nil
 "This will"
 </code></pre>
 
-<blockquote>
-  <p>Note: An interesting note regarding <code class="highlighter-rouge">if/2</code> and <code class="highlighter-rouge">unless/2</code> is that they are implemented as macros in the language; they aren’t special language constructs as they would be in many languages. You can check the documentation and the source of <code class="highlighter-rouge">if/2</code> in <a href="https://hexdocs.pm/elixir/Kernel.html">the <code class="highlighter-rouge">Kernel</code> module docs</a>. The <code class="highlighter-rouge">Kernel</code> module is also where operators like <code class="highlighter-rouge">+/2</code> and functions like <code class="highlighter-rouge">is_function/2</code> are defined, all automatically imported and available in your code by default.</p>
-</blockquote>
+<p><code class="highlighter-rouge">if/2</code> と <code class="highlighter-rouge">unless/2</code> がマクロとして実行されることに関して興味深いところですが、他の多くの言語でもそうであるように、取り立てるほど特別な構造ではありません。これらに関するドキュメントや <code class="highlighter-rouge">if/2</code> のソースは <a href="https://hexdocs.pm/elixir/Kernel.html">the <code class="highlighter-rouge">Kernel</code> module docs</a> で確認できます。 <code class="highlighter-rouge">Kernel</code> モジュールには <code class="highlighter-rouge">+/2</code> のような演算子や <code class="highlighter-rouge">is_function/2</code> といった関数も定義されており、すべて自動的にインポートされるので、あなたのコードはデフォルトでそれらを利用することができます。</p>
 
 <h2 id="doend-blocks"><code class="highlighter-rouge">do/end</code> blocks</h2>
 
-<p>At this point, we have learned four control structures: <code class="highlighter-rouge">case</code>, <code class="highlighter-rouge">cond</code>, <code class="highlighter-rouge">if</code>, and <code class="highlighter-rouge">unless</code>, and they were all wrapped in <code class="highlighter-rouge">do/end</code> blocks. It happens we could also write <code class="highlighter-rouge">if</code> as follows:</p>
+<p>ここまで <code class="highlighter-rouge">case</code>, <code class="highlighter-rouge">cond</code>, <code class="highlighter-rouge">if</code>, <code class="highlighter-rouge">unless</code> という4つの制御構造を学びましたが、これらはすべて <code class="highlighter-rouge">do/end</code> ブロックに包含されていました。しかし、よくある書き方として <code class="highlighter-rouge">if</code> を以下のようにすることもできたのです。</p>
 
 <pre><code class="language-iex">iex&gt; if true, do: 1 + 2
 3
 </code></pre>
 
-<p>Notice how the example above has a comma between <code class="highlighter-rouge">true</code> and <code class="highlighter-rouge">do:</code>, that’s because it is using Elixir’s regular syntax where each argument is separated by a comma. We say this syntax is using <em>keyword lists</em>. We can pass <code class="highlighter-rouge">else</code> using keywords too:</p>
+<p>注目して欲しいのは、どうしてこの例で <code class="highlighter-rouge">true</code> と <code class="highlighter-rouge">do:</code> の間にコンマが置かれているのかです。この理由は、各引数がコンマによって区切られなければいけないという基本的な文法によります。つまり、この文法は <em>キーワードリスト</em> を使っているということなのです。キーワードに <code class="highlighter-rouge">else</code> を渡して使うこともできます。</p>
 
 <pre><code class="language-iex">iex&gt; if false, do: :this, else: :that
 :that
 </code></pre>
 
-<p><code class="highlighter-rouge">do/end</code> blocks are a syntactic convenience built on top of the keywords one. That’s why <code class="highlighter-rouge">do/end</code> blocks do not require a comma between the previous argument and the block. They are useful exactly because they remove the verbosity when writing blocks of code. These are equivalent:</p>
+<p><code class="highlighter-rouge">do/end</code> ブロックは文法的な便宜です。では、なぜ <code class="highlighter-rouge">do/end</code> ブロックは前にある引数やブロックとの間にコンマを必要としないのでしょう。以下の二つは同等になります。</p>
 
 <pre><code class="language-iex">iex&gt; if true do
 ...&gt;   a = 1 + 2
@@ -405,7 +403,7 @@ iex&gt; if true, do: (
 13
 </code></pre>
 
-<p>One thing to keep in mind when using <code class="highlighter-rouge">do/end</code> blocks is they are always bound to the outermost function call. For example, the following expression:</p>
+<p><code class="highlighter-rouge">do/end</code> ブロックを使う場合にひとつ留意して欲しいのが、これらは一番外側で呼ばれた関数に対して働く点です。例えば以下の表現は、<code class="highlighter-rouge">if</code> のキーワードとしては認められません。</p>
 
 <pre><code class="language-iex">iex&gt; is_number if true do
 ...&gt;  1 + 2
@@ -413,7 +411,7 @@ iex&gt; if true, do: (
 ** (CompileError) iex:1: undefined function is_number/2
 </code></pre>
 
-<p>Would be parsed as:</p>
+<p>その為、実際には以下のように解釈されることになってしまいます。</p>
 
 <pre><code class="language-iex">iex&gt; is_number(if true) do
 ...&gt;  1 + 2
@@ -421,9 +419,9 @@ iex&gt; if true, do: (
 ** (CompileError) iex:1: undefined function is_number/2
 </code></pre>
 
-<p>which leads to an undefined function error because that invocation passes two arguments, and <code class="highlighter-rouge">is_number/2</code> does not exist. The <code class="highlighter-rouge">if true</code> expression is invalid in itself because it needs the block, but since the arity of <code class="highlighter-rouge">is_number/2</code> does not match, Elixir does not even reach its evaluation.</p>
+<p>無理なお願いをしたことで起こった undefined function のエラーです。 <code class="highlighter-rouge">is_number/2</code> は存在しないと言っています。<code class="highlighter-rouge">if true</code> という式はブロックが必要になる為、これ自体が無効な表現となります。 <code class="highlighter-rouge">is_number/2</code> のアリティとは一致しません。ゆえに Elixir はそれを評価するにさえ至らないのです。</p>
 
-<p>Adding explicit parentheses is enough to bind the block to <code class="highlighter-rouge">if</code>:</p>
+<p><code class="highlighter-rouge">if</code> にブロックを括り付けるには明確に丸括弧で囲むだけで十分です。</p>
 
 <pre><code class="language-iex">iex&gt; is_number(if true do
 ...&gt;  1 + 2
@@ -431,7 +429,7 @@ iex&gt; if true, do: (
 true
 </code></pre>
 
-<p>Keyword lists play an important role in the language and are quite common in many functions and macros. We will explore them a bit more in a future chapter. Now it is time to talk about “Binaries, strings, and char lists”.</p>
+<p>キーワードリストはとても重要な役割を果たしており、多くの関数やマクロにおいて普遍的なものです。それについてはまた別の章で取り上げる事として、そろそろ “バイナリ、文字列、文字リスト” の紹介してもいい頃でしょう。</p>
 
   </article><!-- .hfeed -->
 
