@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>case, cond, and if - Elixir</title>
+  <title>case, cond, そして if - Elixir</title>
   <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
   <link rel="stylesheet" type="text/css" href="/css/style.css" />
   <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
@@ -24,12 +24,12 @@
     gtag('config', 'UA-8268430-6');
   </script>
   <!-- Begin Jekyll SEO tag v2.2.3 -->
-<meta property="og:title" content="case, cond, and if" />
+<meta property="og:title" content="case, cond, そして if" />
 <meta property="og:locale" content="en_US" />
 <link rel="canonical" href="https://elixir-lang.org/ja/getting-started/case-cond-and-if.html" />
 <meta property="og:url" content="https://elixir-lang.org/ja/getting-started/case-cond-and-if.html" />
 <script type="application/ld+json">
-{"@context":"http://schema.org","@type":"WebPage","headline":"case, cond, and if","url":"https://elixir-lang.org/ja/getting-started/case-cond-and-if.html"}</script>
+{"@context":"http://schema.org","@type":"WebPage","headline":"case, cond, そして if","url":"https://elixir-lang.org/ja/getting-started/case-cond-and-if.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -220,7 +220,7 @@
 
 <div id="content">
   <article>
-    <h1 id="case-cond-and-if">case, cond, and if</h1>
+    <h1 id="case-cond-そして-if">case, cond, そして if</h1>
 
 <div id="toc" class="toc"></div>
 
@@ -347,7 +347,7 @@ iex&gt; f.(-1, 3)
 "1 is considered as true"
 </code></pre>
 
-<h2 id="if-and-unless"><code class="highlighter-rouge">if</code> and <code class="highlighter-rouge">unless</code></h2>
+<h2 id="if-と-unless"><code class="highlighter-rouge">if</code> と <code class="highlighter-rouge">unless</code></h2>
 
 <p><code class="highlighter-rouge">case</code> と <code class="highlighter-rouge">cond</code> の他、ひとつの条件だけを検証したい時に有用なマクロ <code class="highlighter-rouge">if/2</code> と <code class="highlighter-rouge">unless/2</code> も使えます。</p>
 
@@ -375,7 +375,7 @@ nil
 
 <p><code class="highlighter-rouge">if/2</code> と <code class="highlighter-rouge">unless/2</code> がマクロとして実行されることに関して興味深いところですが、他の多くの言語でもそうであるように、取り立てるほど特別な構造ではありません。これらに関するドキュメントや <code class="highlighter-rouge">if/2</code> のソースは <a href="https://hexdocs.pm/elixir/Kernel.html">the <code class="highlighter-rouge">Kernel</code> module docs</a> で確認できます。 <code class="highlighter-rouge">Kernel</code> モジュールには <code class="highlighter-rouge">+/2</code> のような演算子や <code class="highlighter-rouge">is_function/2</code> といった関数も定義されており、すべて自動的にインポートされるので、あなたのコードはデフォルトでそれらを利用することができます。</p>
 
-<h2 id="doend-blocks"><code class="highlighter-rouge">do/end</code> blocks</h2>
+<h2 id="doend-ブロック"><code class="highlighter-rouge">do/end</code> ブロック</h2>
 
 <p>ここまで <code class="highlighter-rouge">case</code>, <code class="highlighter-rouge">cond</code>, <code class="highlighter-rouge">if</code>, <code class="highlighter-rouge">unless</code> という4つの制御構造を学びましたが、これらはすべて <code class="highlighter-rouge">do/end</code> ブロックに包含されていました。しかし、よくある書き方として <code class="highlighter-rouge">if</code> を以下のようにすることもできたのです。</p>
 

@@ -14,6 +14,10 @@ msgid ""
 "title: case, cond, and if\n"
 "---"
 msgstr ""
+"---\n"
+"layout: getting-started\n"
+"title: case, cond, そして if\n"
+"---"
 
 msgid "# {{ page.title }}"
 msgstr ""
@@ -27,7 +31,7 @@ msgid ""
 msgstr "この章では、 case, cond, if といった制御構造について学んでいきます。"
 
 msgid "## `case`"
-msgstr ""
+msgstr "## `case`"
 
 msgid ""
 "`case` allows us to compare a value against many patterns until we find a matc"
@@ -152,7 +156,7 @@ msgid ""
 msgstr ""
 
 msgid "## `cond`"
-msgstr ""
+msgstr "## `cond`"
 
 msgid ""
 "`case` is useful when you need to match against different values. However, in "
@@ -217,7 +221,7 @@ msgid ""
 msgstr ""
 
 msgid "## `if` and `unless`"
-msgstr ""
+msgstr "## `if` と `unless`"
 
 msgid ""
 "Besides `case` and `cond`, Elixir also provides the macros `if/2` and `unless/"
@@ -274,7 +278,7 @@ msgstr ""
 "/2` といった関数も定義されており、すべて自動的にインポートされるので、あなたのコードはデフォルトでそれらを利用することができます。"
 
 msgid "## `do/end` blocks"
-msgstr ""
+msgstr "## `do/end` ブロック"
 
 msgid ""
 "At this point, we have learned four control structures: `case`, `cond`, `if`, "

@@ -1,6 +1,6 @@
 ---
 layout: getting-started
-title: case, cond, and if
+title: case, cond, そして if
 ---
 
 # {{ page.title }}
@@ -140,7 +140,7 @@ iex> cond do
 "1 is considered as true"
 ```
 
-## `if` and `unless`
+## `if` と `unless`
 
 `case` と `cond` の他、ひとつの条件だけを検証したい時に有用なマクロ `if/2` と `unless/2` も使えます。
 
@@ -170,7 +170,7 @@ iex> if nil do
 
 `if/2` と `unless/2` がマクロとして実行されることに関して興味深いところですが、他の多くの言語でもそうであるように、取り立てるほど特別な構造ではありません。これらに関するドキュメントや `if/2` のソースは [the `Kernel` module docs](https://hexdocs.pm/elixir/Kernel.html) で確認できます。 `Kernel` モジュールには `+/2` のような演算子や `is_function/2` といった関数も定義されており、すべて自動的にインポートされるので、あなたのコードはデフォルトでそれらを利用することができます。
 
-## `do/end` blocks
+## `do/end` ブロック
 
 ここまで `case`, `cond`, `if`, `unless` という4つの制御構造を学びましたが、これらはすべて `do/end` ブロックに包含されていました。しかし、よくある書き方として `if` を以下のようにすることもできたのです。
 
