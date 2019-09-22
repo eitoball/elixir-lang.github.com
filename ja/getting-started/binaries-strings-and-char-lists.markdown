@@ -1,13 +1,13 @@
 ---
 layout: getting-started
-title: Binaries, strings, and charlists
+title: バイナリ、文字列、文字リスト
 ---
 
 # {{ page.title }}
 
 {% include toc.html %}
 
-In "Basic types", we learned about strings and used the `is_binary/1` function for checks:
+基本型の章で、我々は文字列について学び、`is_binary/1` 関数を使いました。
 
 ```iex
 iex> string = "hello"
@@ -16,17 +16,17 @@ iex> is_binary(string)
 true
 ```
 
-In this chapter, we will understand what binaries are, how they associate with strings, and what a single-quoted value, `'like this'`, means in Elixir.
+Elixir におけるバイナリがどのように文字列と関連するのか、`'こういった単一引用符'` がどういう意味を持っているのか。この章では、バイナリについてそれが何であるかを理解していきましょう。
 
-## UTF-8 and Unicode
+## UTF-8 と Unicode
 
-A string is a UTF-8 encoded binary. In order to understand exactly what we mean by that, we need to understand the difference between bytes and code points.
+文字列は UTF-8 でエンコードされたバイナリです。この意味を理解する為には、バイトとコードポイントの違いを知る必要があります。
 
-The Unicode standard assigns code points to many of the characters we know. For example, the letter `a` has code point `97` while the letter `ł` has code point `322`. When writing the string `"hełło"` to disk, we need to convert this sequence of characters to bytes. If we adopted a rule that said one byte represents one code point, we wouldn't be able to write `"hełło"`, because it uses the code point `322` for `ł`, and one byte can only represent a number from `0` to `255`. But of course, given you can actually read `"hełło"` on your screen, it must be represented *somehow*. That's where encodings come in.
+Unicode は私たちが使う多くの文字にコードポイントを割り振っています。例えば、`a`という文字は`97`のコードポイントを持っていますが、`ł`という文字は`322`のコードポイントを持っています。ディスクに`"hełło"`という文字列を書き込む際に、私たちはこれら文字の連なりをバイトに変換しなければならないのですが、1バイトが一つのコードポイントを表現するというルールに習った場合、`"hełło"`を表現することができません。コードポイント`322`は`ł`の為に使用していますが、1バイトでは`0`から`255`の数値を表現することしかできないのです。とはいえ、実際には`"hełło"`をスクリーン上で読めるのですから、 *何らかの方法* でそれを表現する必要があります。そこでエンコーディングの出番です。
 
-When representing code points in bytes, we need to encode them somehow. Elixir chose the UTF-8 encoding as its main and default encoding. When we say a string is a UTF-8 encoded binary, we mean a string is a bunch of bytes organized in a way to represent certain code points, as specified by the UTF-8 encoding.
+バイトでコードポイントを表現する際にそれらをどうにかエンコードする必要があります。Elixir はデフォルトのエンコード方式として UTF-8 を採用しています。文字列は UTF-8 でエンコードされたバイナリだと述べました。あの意味は、文字列が UTF-8 で指定された通りのコードポイントを表す為に編成されるバイトの一塊りだという意味です。
 
-Since we have characters like `ł` assigned to the code point `322`, we actually need more than one byte to represent them. That's why we see a difference when we calculate the `byte_size/1` of a string compared to its `String.length/1`:
+コードポイント `322` が割り振られている `ł` のような文字があるので、実際にはそれを表現する為に 1 バイト以上が必要になります。`String.length/1`と`byte_size/1`で比較し、違いを見てみます。
 
 ```iex
 iex> string = "hełło"
@@ -37,11 +37,11 @@ iex> String.length(string)
 5
 ```
 
-There, `byte_size/1` counts the underlying raw bytes, and `String.length/1` counts characters.
+ほら。`byte_size/1`は根本的にバイト数を計算しますが、`String.length/1`は文字数を計算していますね。
 
-> Note: if you are running on Windows, there is a chance your terminal does not use UTF-8 by default. You can change the encoding of your current session by running `chcp 65001` before entering `iex` (`iex.bat`).
+Note: Windows ではターミナルがデフォルトで UTF-8 が使えないことがあります。`iex` (`iex.bat`)を起動する前に`chcp 65001`を実行して現在のセッションのエンコードを変更できます。
 
-UTF-8 requires one byte to represent the characters `h`, `e`, and `o`, but two bytes to represent `ł`. In Elixir, you can get a character's code point by using `?`:
+UTF-8 は`h`、`e`、`o`を表現する為にそれぞれ 1 バイトを必要としますが、`ł`の表現には 2 バイトです。Elixir では `?` を使って文字のコードポイントを得られます。
 
 ```iex
 iex> ?a
@@ -50,20 +50,20 @@ iex> ?ł
 322
 ```
 
-You can also use the functions in [the `String` module](https://hexdocs.pm/elixir/String.html) to split a string in its individual characters, each one as a string of length 1:
+[the `String` module](https://hexdocs.pm/elixir/String.html)の関数を使ってそれぞれを一文字の長さに分割できます。
 
 ```iex
 iex> String.codepoints("hełło")
 ["h", "e", "ł", "ł", "o"]
 ```
 
-You will see that Elixir has excellent support for working with strings. It also supports many of the Unicode operations. In fact, Elixir passes all the tests showcased in the article ["The string type is broken"](http://mortoray.com/2013/11/27/the-string-type-is-broken/).
+Elixir が優れた文字列操作をサポートしていることをお分かりいただけると思います。また同時に多くの Unicode 操作もサポートしています。実際、["文字列型は壊れている(英語)"](http://mortoray.com/2013/11/27/the-string-type-is-broken/)という記事で提示されているすべてのテストを Elixir はパスしています。
 
-However, strings are just part of the story. If a string is a binary, and we have used the `is_binary/1` function, Elixir must have an underlying type empowering strings. And it does! Let's talk about binaries.
+しかし、文字列型はこの話におけるほんの一部分にでしかありません。文字列がバイナリであり、`is_binary/1`関数を使った時、Elixir には文字列を強化する為に基礎的な型が必要です。というわけで、それをやるとしましょう。今こそバイナリについてお話する時です！
 
-## Binaries (and bitstrings)
+## バイナリとビット文字列
 
-In Elixir, you can define a binary using `<<>>`:
+Elixir では `<<>>` を使ってバイナリを定義できます。
 
 ```iex
 iex> <<0, 1, 2, 3>>
@@ -72,28 +72,28 @@ iex> byte_size(<<0, 1, 2, 3>>)
 4
 ```
 
-A binary is a sequence of bytes. Those bytes can be organized in any way, even in a sequence that does not make them a valid string:
+バイナリとはバイトのシーケンスです。これらのバイトは、どのような方法でも、文字列としては不正なシーケンスにさえ編成され得ます。
 
 ```iex
 iex> String.valid?(<<239, 191, 19>>)
 false
 ```
 
-The string concatenation operation is actually a binary concatenation operator:
+文字列の連結操作は、実際にはバイナリの連結操作です。
 
 ```iex
 iex> <<0, 1>> <> <<2, 3>>
 <<0, 1, 2, 3>>
 ```
 
-A common trick in Elixir is to concatenate the null byte `<<0>>` to a string to see its inner binary representation:
+Elixir では、文字列の内部的なバイナリ表現を確かめる為に空のバイト `<<0>>`` を連結させるというテクニックをよく使います。
 
 ```iex
 iex> "hełło" <> <<0>>
 <<104, 101, 197, 130, 197, 130, 111, 0>>
 ```
 
-Each number given to a binary is meant to represent a byte and therefore must go up to 255. Binaries allow modifiers to be given to store numbers bigger than 255 or to convert a code point to its UTF-8 representation:
+バイナリに与えたれている各数字はバイトを表す為であり、255 以下でなければいけません。バイナリは 255 より大きな数字を保持したり、コードポイントを UTF-8 に変換する為に修飾子を受け付けることができます。
 
 ```iex
 iex> <<255>>
@@ -108,7 +108,7 @@ iex> <<256 :: utf8, 0>>
 <<196, 128, 0>>
 ```
 
-If a byte has 8 bits, what happens if we pass a size of 1 bit?
+1byte(8bit) に 1bit を渡すとどうなるでしょうか。
 
 ```iex
 iex> <<1 :: size(1)>>
@@ -123,7 +123,7 @@ iex> bit_size(<<1 :: size(1)>>)
 1
 ```
 
-The value is no longer a binary, but a bitstring -- a bunch of bits! So a binary is a bitstring where the number of bits is divisible by 8.
+値はもはやバイナリではありませんが、ビット文字列、つまりビットの塊です。よって、バイナリはビット数が 8 で割り切ることのできるビット文字列です。
 
 ```iex
 iex>  is_binary(<<1 :: size(16)>>)
@@ -132,7 +132,7 @@ iex>  is_binary(<<1 :: size(15)>>)
 false
 ```
 
-We can also pattern match on binaries / bitstrings:
+バイナリやビット文字列でもパターンマッチができます。
 
 ```iex
 iex> <<0, 1, x>> = <<0, 1, 2>>
@@ -143,7 +143,7 @@ iex> <<0, 1, x>> = <<0, 1, 2, 3>>
 ** (MatchError) no match of right hand side value: <<0, 1, 2, 3>>
 ```
 
-Note each entry in the binary pattern is expected to match exactly 8 bits. If we want to match on a binary of unknown size, it is possible by using the binary modifier at the end of the pattern:
+バイナリパターンの各エントリはちょうど 8bit にマッチすることを期待されています。サイズが分からないバイナリでマッチさせたい時には、パターンマッチの最後にバイナリ修飾子を置くことによって可能です。
 
 ```iex
 iex> <<0, 1, x :: binary>> = <<0, 1, 2, 3>>
@@ -152,7 +152,7 @@ iex> x
 <<2, 3>>
 ```
 
-Similar results can be achieved with the string concatenation operator `<>`:
+文字列の連結演算子を使って、類似する結果をアーカイブできます。
 
 ```iex
 iex> "he" <> rest = "hello"
@@ -161,11 +161,11 @@ iex> rest
 "llo"
 ```
 
-A complete reference about the binary / bitstring constructor `<<>>` can be found [in the Elixir documentation](https://hexdocs.pm/elixir/Kernel.SpecialForms.html#%3C%3C%3E%3E/1). This concludes our tour of bitstrings, binaries and strings. A string is a UTF-8 encoded binary and a binary is a bitstring where the number of bits is divisible by 8. Although this shows the flexibility Elixir provides for working with bits and bytes, 99% of the time you will be working with binaries and using the `is_binary/1` and `byte_size/1` functions.
+バイナリとビット文字列のコンストラクタに関する詳細な資料は[in the Elixir documentation](https://hexdocs.pm/elixir/Kernel.SpecialForms.html#%3C%3C%3E%3E/1)を参照してください。これにて文字列、バイナリ、ビット文字列のツアーは終了します。文字列とは UTF-8 でエンコードされたバイナリであり、バイナリとはビット数が 8 で割り切ることのできるビット文字列でした。ここで Elixir がビットとバイトを用いた作業の為の柔軟性が用意されていることを示しましたが、99% はバイナリ操作と `is_binary/1` と `byte_size/1` を使うことになります。
 
-## Charlists
+## 文字リスト
 
-A charlist is nothing more than a list of code points. Char lists may be created with single-quoted literals:
+文字リストとはコードポイントのリストにすぎません。文字リストはシングルクォーテーションを使ったリテラルで作成できます。
 
 ```iex
 iex> 'hełło'
@@ -178,9 +178,9 @@ iex> List.first('hello')
 104
 ```
 
-You can see that, instead of containing bytes, a charlist contains the code points of the characters between single-quotes (note that by default IEx will only output code points if any of the integers is outside the ASCII range). So while double-quotes represent a string (i.e. a binary), single-quotes represent a charlist (i.e. a list).
+文字リストはバイトの代わりに文字のコードポイントを包含していることが分かりますね (IEx は、いずれかの整数が ASCII の範囲を超える場合のみ、デフォルトでコードポイントを出力します)。ダブルクォーテーションが文字列(i.e. バイナリ) を表現するのに対して、シングルクォーテーションは文字リストを表現します(i.e. リスト)。
 
-In practice, charlists are used mostly when interfacing with Erlang, in particular old libraries that do not accept binaries as arguments. You can convert a charlist to a string and back by using the `to_string/1` and `to_charlist/1` functions:
+文字リストは、主に Erlang インターフェイスの利用における、特にバイナリを引数として受け付けられないライブラリで使われます。
 
 ```iex
 iex> to_charlist "hełło"
@@ -193,9 +193,9 @@ iex> to_string 1
 "1"
 ```
 
-Note that those functions are polymorphic. They not only convert charlists to strings, but also integers to strings, atoms to strings, and so on.
+これらの関数は多態的に機能します。文字リストを文字列に変換するだけでなく、整数を文字列に変換したり、アトムを文字列に変換することもできます。
 
-String (binary) concatenation uses the `<>` operator but charlists use the lists concatenation operator `++`:
+文字列 (バイナリ) 連結では `<>` を使いますが、文字リストにはリスト連結の `++` を使います。
 
 ```iex
 iex> 'this ' <> 'fails'
@@ -213,4 +213,4 @@ iex> "he" <> "llo"
 "hello"
 ```
 
-With binaries, strings, and charlists out of the way, it is time to talk about key-value data structures.
+バイナリ、文字列、文字リストについてはこのくらいにして、続いてはキーと値のデータ構造についてお話ししましょう。
