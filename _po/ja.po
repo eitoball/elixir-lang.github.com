@@ -3716,19 +3716,19 @@ msgid "## `call`, `cast` or `info`?"
 msgstr ""
 
 msgid "## `case`"
-msgstr ""
+msgstr "## `case`"
 
 msgid "## `cond`"
-msgstr ""
+msgstr "## `cond`"
 
 msgid "## `defguard` and `defguardp`"
 msgstr ""
 
 msgid "## `do/end` blocks"
-msgstr ""
+msgstr "## `do/end` ブロック"
 
 msgid "## `if` and `unless`"
-msgstr ""
+msgstr "## `if` と `unless`"
 
 msgid "## `iodata` and `chardata`"
 msgstr ""
@@ -4832,6 +4832,10 @@ msgid ""
 "title: case, cond, and if\n"
 "---"
 msgstr ""
+"---\n"
+"layout: getting-started\n"
+"title: case, cond, そして if\n"
+"---"
 
 msgid ""
 "---\n"
