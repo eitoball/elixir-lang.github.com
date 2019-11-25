@@ -364,7 +364,7 @@ msgid ""
 "ular old libraries that do not accept binaries as arguments. You can convert a"
 " charlist to a string and back by using the `to_string/1` and `to_charlist/1` "
 "functions:"
-msgstr "文字リストは、主に Erlang インターフェイスの利用における、特にバイナリを引数として受け付けられないライブラリで使われます。"
+msgstr 実際には、文字リストは特に引数としてバイナリを受け付けない古いErlangライブラリとの、インターフェイスとして使われます。 `to_string/1` や `to_charlist/1` 関数を使って、文字リストを文字列に変換したり、文字列から文字リストに変換したりできます。
 
 msgid ""
 "```iex\n"
