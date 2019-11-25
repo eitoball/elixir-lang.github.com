@@ -301,7 +301,7 @@ msgid ""
 msgstr ""
 
 msgid "Similar results can be achieved with the string concatenation operator `<>`:"
-msgstr "文字列の連結演算子を使って、類似する結果をアーカイブできます。"
+msgstr "文字列の連結演算子を使って、類似する結果を得ることができます。"
 
 msgid ""
 "```iex\n"
