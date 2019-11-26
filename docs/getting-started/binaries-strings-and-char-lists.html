@@ -238,7 +238,7 @@ true
 
 <p>文字列は UTF-8 でエンコードされたバイナリです。この意味を理解する為には、バイトとコードポイントの違いを知る必要があります。</p>
 
-<p>Unicode は私たちが使う多くの文字にコードポイントを割り振っています。例えば、<code class="highlighter-rouge">a</code>という文字は<code class="highlighter-rouge">97</code>のコードポイントを持っていますが、<code class="highlighter-rouge">ł</code>という文字は<code class="highlighter-rouge">322</code>のコードポイントを持っています。ディスクに<code class="highlighter-rouge">"hełło"</code>という文字列を書き込む際に、私たちはこれら文字の連なりをバイトに変換しなければならないのですが、1バイトが一つのコードポイントを表現するというルールに習った場合、<code class="highlighter-rouge">"hełło"</code>を表現することができません。コードポイント<code class="highlighter-rouge">322</code>は<code class="highlighter-rouge">ł</code>の為に使用していますが、1バイトでは<code class="highlighter-rouge">0</code>から<code class="highlighter-rouge">255</code>の数値を表現することしかできないのです。とはいえ、実際には”`“hełło\</p>
+<p>Unicode は私たちが使う多くの文字にコードポイントを割り振っています。例えば、<code class="highlighter-rouge">a</code>という文字は<code class="highlighter-rouge">97</code>のコードポイントを持っていますが、<code class="highlighter-rouge">ł</code>という文字は<code class="highlighter-rouge">322</code>のコードポイントを持っています。ディスクに<code class="highlighter-rouge">"hełło"</code>という文字列を書き込む際に、私たちはこれら文字の連なりをバイトに変換しなければならないのですが、1バイトが一つのコードポイントを表現するというルールに習った場合、<code class="highlighter-rouge">"hełło"</code>を表現することができません。コードポイント<code class="highlighter-rouge">322</code>は<code class="highlighter-rouge">ł</code>の為に使用していますが、1バイトでは<code class="highlighter-rouge">0</code>から<code class="highlighter-rouge">255</code>の数値を表現することしかできないのです。とはいえ、実際には<code class="highlighter-rouge">"hełło"</code>をスクリーン上で読めるのですから、 <em>何らかの方法</em> でそれを表現する必要があります。そこでエンコーディングの出番です。</p>
 
 <p>バイトでコードポイントを表現する際にそれらをどうにかエンコードする必要があります。Elixir はデフォルトのエンコード方式として UTF-8 を採用しています。文字列は UTF-8 でエンコードされたバイナリだと述べました。あの意味は、文字列が UTF-8 で指定された通りのコードポイントを表す為に編成されるバイトの一塊りだという意味です。</p>
 
@@ -356,7 +356,7 @@ iex&gt; x
 &lt;&lt;2, 3&gt;&gt;
 </code></pre>
 
-<p>文字列の連結演算子を使って、類似する結果をアーカイブできます。</p>
+<p>文字列の連結演算子を使って、類似する結果を得ることができます。</p>
 
 <pre><code class="language-iex">iex&gt; "he" &lt;&gt; rest = "hello"
 "hello"
@@ -382,7 +382,7 @@ iex&gt; List.first('hello')
 
 <p>文字リストはバイトの代わりに文字のコードポイントを包含していることが分かりますね (IEx は、いずれかの整数が ASCII の範囲を超える場合のみ、デフォルトでコードポイントを出力します)。ダブルクォーテーションが文字列(i.e. バイナリ) を表現するのに対して、シングルクォーテーションは文字リストを表現します(i.e. リスト)。</p>
 
-<p>文字リストは、主に Erlang インターフェイスの利用における、特にバイナリを引数として受け付けられないライブラリで使われます。</p>
+<p>実際には、文字リストは特に引数としてバイナリを受け付けない古いErlangライブラリとの、インターフェイスとして使われます。 <code class="highlighter-rouge">to_string/1</code> や <code class="highlighter-rouge">to_charlist/1</code> 関数を使って、文字リストを文字列に変換したり、文字列から文字リストに変換したりできます。</p>
 
 <pre><code class="language-iex">iex&gt; to_charlist "hełło"
 [104, 101, 322, 322, 111]
