@@ -50,7 +50,7 @@ msgid ""
 "e have a list of tuples and the first item of the tuple (i.e. the key) is an a"
 "tom, we call it a keyword list:"
 msgstr ""
-"大抵の関数型プログラミング言語は、キーと値を表現する為にタプルのリストを使うのが一般的です。Elixir では、タプルの最初にキーとしてアトムを使っているリ"
+"大抵の関数型プログラミング言語は、キーと値を表現する為にタプルのリストを使うのが一般的です。Elixir では、タプルの最初の要素（キー）としてアトムを使っているタプルのリ"
 "ストのことを、キーワードリストと呼んでいます。"
 
 msgid ""
