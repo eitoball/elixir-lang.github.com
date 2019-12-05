@@ -102,7 +102,7 @@ msgid ""
 msgstr ""
 "  * キーはアトムである\n"
 "  * キーは開発者が指定した通りに並ぶ\n"
-"  * キーはいくつでも与えられる"
+"  * キーは何度でも使える"
 
 msgid ""
 "For example, [the Ecto library](https://github.com/elixir-lang/ecto) makes use"
