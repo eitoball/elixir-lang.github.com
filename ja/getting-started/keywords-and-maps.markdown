@@ -1,6 +1,6 @@
 ---
 layout: getting-started
-title: Keyword lists and maps
+title: キーワードリストとマップ
 redirect_from: /getting-started/maps-and-dicts.html
 ---
 
@@ -8,13 +8,13 @@ redirect_from: /getting-started/maps-and-dicts.html
 
 {% include toc.html %}
 
-So far we haven't discussed any associative data structures, i.e. data structures that are able to associate a certain value (or multiple values) to a key. Different languages call these different names like dictionaries, hashes, associative arrays, etc.
+今までのところ、とある値をキーと関連づけすることが出来るようなデータ構造についてまだ触れていません。言語によってはそういうデータ構造のことを辞書、ハッシュ、あるいは連想配列という風に異なる名前で呼んでいます。
 
-In Elixir, we have two main associative data structures: keyword lists and maps. It's time to learn more about them!
+Elixir では主にキーワードリストとマップという二つの連想データ構造があります。これらについて学んでいきましょう。
 
-## Keyword lists
+## キーワードリスト
 
-In many functional programming languages, it is common to use a list of 2-item tuples as the representation of a key-value data structure. In Elixir, when we have a list of tuples and the first item of the tuple (i.e. the key) is an atom, we call it a keyword list:
+大抵の関数型プログラミング言語は、キーと値を表現する為にタプルのリストを使うのが一般的です。Elixir では、タプルの最初にキーとしてアトムを使っているリストのことを、キーワードリストと呼んでいます。
 
 ```iex
 iex> list = [{:a, 1}, {:b, 2}]
@@ -23,7 +23,7 @@ iex> list == [a: 1, b: 2]
 true
 ```
 
-As you can see above, Elixir supports a special syntax for defining such lists: `[key: value]`. Underneath it maps to the same list of tuples as above. Since keyword lists are lists, we can use all operations available to lists. For example, we can use `++` to add new values to a keyword list:
+上のコードで分かる通り、Elixir は同じことを `[key: value]` という風に書ける特別な構文をサポートしています。キーワードリストはリストですから、リストに対して行える全ての操作がキーワードリストにも利用できます。例えば、新しく値を追加する為に `++` を使うことができます。
 
 ```iex
 iex> list ++ [c: 3]
@@ -32,7 +32,7 @@ iex> [a: 0] ++ list
 [a: 0, a: 1, b: 2]
 ```
 
-Note that values added to the front are the ones fetched on lookup:
+探索する際に引き出される値が先頭に追加された値であることに注意してください。
 
 ```iex
 iex> new_list = [a: 0] ++ list
@@ -41,13 +41,13 @@ iex> new_list[:a]
 0
 ```
 
-Keyword lists are important because they have three special characteristics:
+キーワードリストは以下に挙げる 3 つに特徴づけられた重要なものです。
 
-  * Keys must be atoms.
-  * Keys are ordered, as specified by the developer.
-  * Keys can be given more than once.
+  * キーはアトムである
+  * キーは開発者が指定した通りに並ぶ
+  * キーはいくつでも与えられる
 
-For example, [the Ecto library](https://github.com/elixir-lang/ecto) makes use of these features to provide an elegant DSL for writing database queries:
+例えば、[Ecto ライブラリ](https://github.com/elixir-lang/ecto) ではデータベースのクエリを書く為に使われる洗練された DSL を提供する為にそれら機能を利用しています。
 
 ```elixir
 query = from w in Weather,
@@ -56,30 +56,30 @@ query = from w in Weather,
      select: w
 ```
 
-These characteristics are what prompted keyword lists to be the default mechanism for passing options to functions in Elixir. In chapter 5, when we discussed the `if/2` macro, we mentioned the following syntax is supported:
+Elixir で関数にオプションを渡す手法がキーワードリストとなっているのは、これらの特性によるきっかけです。5 章でマクロの `if/2` について触れた時に、以下のような構文がサポートされていることを言及しました。
 
 ```iex
 iex> if false, do: :this, else: :that
 :that
 ```
 
-The `do:` and `else:` pairs are keyword lists! In fact, the call above is equivalent to:
+`do:` と `else:` という二つのペアはキーワードリストなのです！実際に上記の呼び出しは以下と同等です。
 
 ```iex
 iex> if(false, [do: :this, else: :that])
 :that
 ```
 
-Which, as we have seen above, is the same as:
+以下もまた上記と同じように、どちらも等しいものです。
 
 ```iex
 iex> if(false, [{:do, :this}, {:else, :that}])
 :that
 ```
 
-In general, when the keyword list is the last argument of a function, the square brackets are optional.
+一般的にキーワードリストが関数の最後の引数である時は、角括弧を任意で省略できます。
 
-Although we can pattern match on keyword lists, it is rarely done in practice since pattern matching on lists requires the number of items and their order to match:
+キーワードリストでパターンマッチを利用できるのですが、要素の数とその順序が一致している必要がある為に殆ど利用されません。
 
 ```iex
 iex> [a: a] = [a: 1]
@@ -92,11 +92,11 @@ iex> [b: b, a: a] = [a: 1, b: 2]
 ** (MatchError) no match of right hand side value: [a: 1, b: 2]
 ```
 
-In order to manipulate keyword lists, Elixir provides [the `Keyword` module](https://hexdocs.pm/elixir/Keyword.html). Remember, though, keyword lists are simply lists, and as such they provide the same linear performance characteristics as lists. The longer the list, the longer it will take to find a key, to count the number of items, and so on. For this reason, keyword lists are used in Elixir mainly for passing optional values. If you need to store many items or guarantee one-key associates with at maximum one-value, you should use maps instead.
+Elixir はキーワードリストを操作する為に [`Keyword` モジュール](https://hexdocs.pm/elixir/Keyword.html) を提供しています。ただし、キーワードリストは単なるリストであり、それ自体はリストとして同じ線形的な運用特性があることは覚えておいてください。リストが長いほどキーの検索や要素数のカウントに時間がかかります。その理由は、Elixir のキーワードリストが主にオプション値を渡す為に使われる為です。要素をたくさん保持したり、一つのキーが一つの値とだけ関連づけられることの保証が必要な場合は、キーワードリストの代わりにマップを使うべきです。
 
-## Maps
+## マップ
 
-Whenever you need a key-value store, maps are the "go to" data structure in Elixir. A map is created using the `%{}` syntax:
+キーと値のペアで保持したいものがある時にはマップが打ってつけのデータ構造です。マップは `%{}` という構文を使って作成します。
 
 ```iex
 iex> map = %{:a => 1, 2 => :b}
@@ -109,12 +109,12 @@ iex> map[:c]
 nil
 ```
 
-Compared to keyword lists, we can already see two differences:
+キーワードリストと比較すると二つの違いが見て取れます。
 
-  * Maps allow any value as a key.
-  * Maps' keys do not follow any ordering.
+  * マップはどんな値もキーにできる
+  * マップのキーは順序がない
 
-In contrast to keyword lists, maps are very useful with pattern matching. When a map is used in a pattern, it will always match on a subset of the given value:
+キーワードリストと違ってマップのパターンマッチは非常に有用です。パターンにマップを使うと、与えられた値のサブセットとマッチします。
 
 ```iex
 iex> %{} = %{:a => 1, 2 => :b}
@@ -127,9 +127,9 @@ iex> %{:c => c} = %{:a => 1, 2 => :b}
 ** (MatchError) no match of right hand side value: %{2 => :b, :a => 1}
 ```
 
-As shown above, a map matches as long as the keys in the pattern exist in the given map. Therefore, an empty map matches all maps.
+見ての通り、パターン内のキーが与えられたマップ内に存在する間はマッチします。よって、空のマップは完全にどのマップとも一致します。
 
-Variables can be used when accessing, matching and adding map keys:
+変数を使って値にアクセスしたり、マッチングやキーを追加することが出来ます。
 
 ```iex
 iex> n = 1
@@ -142,7 +142,7 @@ iex> %{^n => :one} = %{1 => :one, 2 => :two, 3 => :three}
 %{1 => :one, 2 => :two, 3 => :three}
 ```
 
-[The `Map` module](https://hexdocs.pm/elixir/Map.html) provides a very similar API to the `Keyword` module with convenience functions to manipulate maps:
+[`Map` モジュール](https://hexdocs.pm/elixir/Map.html) は `Keyword` モジュールが備えている便利な関数とよく似た API をマップの操作の為に提供しています。
 
 ```iex
 iex> Map.get(%{:a => 1, 2 => :b}, :a)
@@ -153,7 +153,7 @@ iex> Map.to_list(%{:a => 1, 2 => :b})
 [{2, :b}, {:a, 1}]
 ```
 
-Maps have the following syntax for updating a key's value:
+マップはキーが持つ値を更新する為に以下の構文をサポートします。
 
 ```iex
 iex> map = %{:a => 1, 2 => :b}
@@ -165,16 +165,16 @@ iex> %{map | :c => 3}
 ** (KeyError) key :c not found in: %{2 => :b, :a => 1}
 ```
 
-The syntax above requires the given key to exist. It cannot be used to add new keys. For example, using it with the `:c` key failed because there is no `:c` in the map.
+上記の構文は与えられたキーが存在する必要があります。これを新しいキーの追加には使えません。`:c` というキーを使った例では、マップ内に `:c` が存在しないので失敗しています。
 
-When all the keys in a map are atoms, you can use the keyword syntax for convenience:
+マップ内のすべてのキーがアトムの時は便利なキーワード構文を使って簡潔に書けます。
 
 ```iex
 iex> map = %{a: 1, b: 2}
 %{a: 1, b: 2}
 ```
 
-Another interesting property of maps is that they provide their own syntax for accessing atom keys:
+マップのもう一つ興味深い特質として、アトムのキーにアクセスする独自の構文が用意されていることが挙げられます。
 
 ```iex
 iex> map = %{:a => 1, 2 => :b}
@@ -186,15 +186,15 @@ iex> map.c
 ** (KeyError) key :c not found in: %{2 => :b, :a => 1}
 ```
 
-Elixir developers typically prefer to use the `map.field` syntax and pattern matching instead of the functions in the `Map` module when working with maps because they lead to an assertive style of programming. [This blog post](http://blog.plataformatec.com.br/2014/09/writing-assertive-code-with-elixir/) provides insight and examples on how you get more concise and faster software by writing assertive code in Elixir.
+一般的に Elixir を使う開発者は、マップを用いた操作で `Map` モジュールの関数を使うよりも、パターンマッチと `map.field` という構文を好んで使います。その方が確定的なコードを書けるようになるからです。[このブログ記事](http://blog.plataformatec.com.br/2014/09/writing-assertive-code-with-elixir/) では、Elixir の確定的なコードで如何に簡潔かつ高速なソフトウェアを手に入れるかの例と洞察を紹介しています。
 
-> Note: Maps were recently introduced into the Erlang <abbr title="Virtual Machine">VM</abbr> and only from Elixir v1.2 are they capable of holding millions of keys efficiently. Therefore, if you are working with previous Elixir versions (v1.0 or v1.1) and you need to support at least hundreds of keys, you may consider using [the `HashDict` module](https://hexdocs.pm/elixir/HashDict.html).
+Note: マップは最近になって Erlang <abbr title="Virtual Machine">VM</abbr> に導入されたばかりで、何百万という沢山のキーを効率的に保持できるのは Elixir v1.2 以降だけです。もしも今、あなたが以前のバージョンの Elixir (v1.0 or v1.1) を使っていて、少なくとも数百のキーをサポートする必要があるなら、[`HashDict` モジュール](https://hexdocs.pm/elixir/HashDict.html) の使用を検討してもよいかも知れません。
 
-## Nested data structures
+## ネストされたデータ構造
 
-Often we will have maps inside maps, or even keywords lists inside maps, and so forth. Elixir provides conveniences for manipulating nested data structures via the `put_in/2`, `update_in/2` and other macros giving the same conveniences you would find in imperative languages while keeping the immutable properties of the language.
+マップの中でさらにマップやキーワードリスト等が必要なケースが往々にしてあります。Elixir は `put_in/2` や `update_in/2` 及び、命令型言語に見られるものと同様に便利なその他のマクロよって、属性をイミュータブルに保ったまま多次元のデータ構造を操作するという利便性を提供しています。
 
-Imagine you have the following structure:
+以下のような構造があるとします。
 
 ```iex
 iex> users = [
@@ -205,14 +205,14 @@ iex> users = [
  mary: %{age: 29, languages: ["Elixir", "F#", "Clojure"], name: "Mary"}]
 ```
 
-We have a keyword list of users where each value is a map containing the name, age and a list of programming languages each user likes. If we wanted to access the age for john, we could write:
+名前と年齢、そして各ユーザーが好きな言語リストで構成されるマップを含んだキーワードリストがあります。John の年齢にアクセスしたい時はこう書きます。
 
 ```iex
 iex> users[:john].age
 27
 ```
 
-It happens we can also use this same syntax for updating the value:
+これと同じ構文を値の更新に使うこともできます。
 
 ```iex
 iex> users = put_in users[:john].age, 31
@@ -220,7 +220,7 @@ iex> users = put_in users[:john].age, 31
  mary: %{age: 29, languages: ["Elixir", "F#", "Clojure"], name: "Mary"}]
 ```
 
-The `update_in/2` macro is similar but allows us to pass a function that controls how the value changes. For example, let's remove "Clojure" from Mary's list of languages:
+マクロ `update_in/2` もこれと似ていますが、値をどのように変更するかを制御する為に関数を渡すことができます。例えば、Mary の言語リストから "Clojure" を削除してみましょう。
 
 ```iex
 iex> users = update_in users[:mary].languages, fn languages -> List.delete(languages, "Clojure") end
@@ -228,6 +228,6 @@ iex> users = update_in users[:mary].languages, fn languages -> List.delete(langu
  mary: %{age: 29, languages: ["Elixir", "F#"], name: "Mary"}]
 ```
 
-There is more to learn about `put_in/2` and `update_in/2`, including the `get_and_update_in/2` that allows us to extract a value and update the data structure at once. There are also `put_in/3`, `update_in/3` and `get_and_update_in/3` which allow dynamic access into the data structure. [Check their respective documentation in the `Kernel` module for more information](https://hexdocs.pm/elixir/Kernel.html).
+値を取り除いたり、データ構造を一度に更新するのことができる `get_and_update_in/2` も含めて `put_in/2` と `update_in/2` をもっと知る必要があるでしょう。動的にデータ構造へアクセスできる `put_in/3` と `update_in/3` 、 `get_and_update_in/3` もあります。それぞれの詳しいドキュメントは [`Kernel` モジュール](https://hexdocs.pm/elixir/Kernel.html) を参照してください。
 
-This concludes our introduction to associative data structures in Elixir. You will find out that, given keyword lists and maps, you will always have the right tool to tackle problems that require associative data structures in Elixir.
+ここで Elixir における連想データ構造の紹介を終わりとします。キーワードリストとマップがある時に、あなたはいつでも連想データ構造を必要とする問題に立ち向かう為の適切なツールがあることが分かると思います。
