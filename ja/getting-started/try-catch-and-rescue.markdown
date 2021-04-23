@@ -45,7 +45,7 @@ iex> raise MyError, message: "custom message"
 ** (MyError) custom message
 ```
 
-エラーは `tru/rescue` 構造を用いることで **捕捉** することが出来ます。
+エラーは `try/rescue` 構造を用いることで **捕捉** することが出来ます。
 
 ```iex
 iex> try do
