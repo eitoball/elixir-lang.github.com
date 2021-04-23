@@ -91,7 +91,7 @@ msgid ""
 msgstr ""
 
 msgid "Errors can be **rescued** using the `try/rescue` construct:"
-msgstr "エラーは `tru/rescue` 構造を用いることで **捕捉** することが出来ます。"
+msgstr "エラーは `try/rescue` 構造を用いることで **捕捉** することが出来ます。"
 
 msgid ""
 "```iex\n"
